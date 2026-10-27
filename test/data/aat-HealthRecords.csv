@@ -1,0 +1,9 @@
+ID,animal_ID,checkupDate,diagnosis,treatment,medication,veterinarian,weight,healthStatus,vaccinationStatus,healthSummary,nextCheckupDate,adoptionEligible,recovered
+bbbbbbbb-0000-0000-0000-000000000001,aaaaaaaa-0000-0000-0000-000000000001,2026-09-15,Routine checkup,None needed,,Dr. Rao,28.5,Healthy,Vaccinated,In excellent health,2026-12-15,true,false
+bbbbbbbb-0000-0000-0000-000000000002,aaaaaaaa-0000-0000-0000-000000000005,2026-10-05,Fractured foreleg,Splint and rest,Painkillers,Dr. Rao,31.2,Injured,Not Vaccinated,Healing well but not yet fit for adoption,2026-10-12,false,false
+bbbbbbbb-0000-0000-0000-000000000003,aaaaaaaa-0000-0000-0000-000000000004,2026-09-22,Vaccination in progress,Second dose due,,Dr. Mehta,1.4,Healthy,Partially Vaccinated,Second vaccine dose is due,2026-11-05,false,false
+bbbbbbbb-0000-0000-0000-000000000004,aaaaaaaa-0000-0000-0000-000000000002,2026-09-25,Routine checkup and deworming,Deworming tablet,Albendazole,Dr. Rao,18.3,Healthy,Vaccinated,Healthy and active,2026-12-25,true,false
+bbbbbbbb-0000-0000-0000-000000000005,aaaaaaaa-0000-0000-0000-000000000003,2026-10-01,Routine checkup,None needed,,Dr. Mehta,4.1,Healthy,Vaccinated,"Healthy, calm temperament",2026-11-20,true,false
+bbbbbbbb-0000-0000-0000-000000000006,aaaaaaaa-0000-0000-0000-000000000006,2026-09-10,Minor ear infection,Ear drops for 7 days,Otic drops,Dr. Mehta,3.6,Healthy,Vaccinated,Fully recovered,2026-12-10,true,true
+bbbbbbbb-0000-0000-0000-000000000007,aaaaaaaa-0000-0000-0000-000000000007,2026-09-12,Pre-adoption health check,None needed,,Dr. Rao,12.9,Healthy,Vaccinated,Fit for adoption,2027-03-12,true,false
+bbbbbbbb-0000-0000-0000-000000000008,aaaaaaaa-0000-0000-0000-000000000008,2026-08-01,Pre-adoption health check,None needed,,Dr. Mehta,4.4,Healthy,Vaccinated,Fit for adoption,2027-02-01,true,false

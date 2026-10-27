@@ -1,0 +1,8 @@
+ID,application_ID,docType,fileName,mediaType,size,url,createdAt,createdBy
+ffffffff-0000-0000-0000-000000000001,dddddddd-0000-0000-0000-000000000001,Housing Proof,Rent agreement.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-10-20T09:05:00Z,kevin@cap.com
+ffffffff-0000-0000-0000-000000000002,dddddddd-0000-0000-0000-000000000001,ID Proof,Aadhaar card.jpg,image/jpeg,180000,https://picsum.photos/seed/doc2/800/600,2026-10-20T09:06:00Z,kevin@cap.com
+ffffffff-0000-0000-0000-000000000003,dddddddd-0000-0000-0000-000000000002,Housing Proof,Sale deed.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-10-18T16:12:00Z,riya@gmail.com
+ffffffff-0000-0000-0000-000000000004,dddddddd-0000-0000-0000-000000000003,ID Proof,Passport.jpg,image/jpeg,180000,https://picsum.photos/seed/doc4/800/600,2026-09-10T12:05:00Z,user@example.com
+ffffffff-0000-0000-0000-000000000005,dddddddd-0000-0000-0000-000000000003,Housing Proof,Property tax receipt.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-09-10T12:06:00Z,user@example.com
+ffffffff-0000-0000-0000-000000000006,dddddddd-0000-0000-0000-000000000004,Housing Proof,Lease agreement.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-08-05T10:20:00Z,kevin@cap.com
+ffffffff-0000-0000-0000-000000000007,dddddddd-0000-0000-0000-000000000005,ID Proof,Voter ID.jpg,image/jpeg,180000,https://picsum.photos/seed/doc7/800/600,2026-10-05T18:05:00Z,riya@gmail.com

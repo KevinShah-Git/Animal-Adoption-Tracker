@@ -1,0 +1,28 @@
+:root {
+    --aat-navy: #0B1F3A;
+    --aat-navy-2: #16315A;
+    --aat-gold: #C9A227;
+    --aat-gold-soft: #F3E6B3;
+    --aat-ivory: #F6F4EE;
+    --aat-ink: #1B2433;
+
+    --sapBrandColor: var(--aat-navy);
+    --sapShellColor: var(--aat-navy);
+    --sapShell_Background: var(--aat-ivory);
+    --sapBackgroundColor: var(--aat-ivory);
+    --sapHighlightColor: var(--aat-gold);
+    --sapSelectedColor: var(--aat-gold);
+    --sapContent_FocusColor: var(--aat-gold);
+    --sapLinkColor: var(--aat-navy-2);
+    --sapTextColor: var(--aat-ink);
+    --sapButton_Emphasized_Background: var(--aat-navy);
+    --sapButton_Emphasized_BorderColor: var(--aat-navy);
+    --sapButton_Emphasized_Hover_Background: var(--aat-navy-2);
+    --sapButton_Emphasized_TextColor: #ffffff;
+    --sapList_SelectionBackgroundColor: var(--aat-gold-soft);
+    --sapList_Hover_Background: #FBF6E3;
+}
+
+.sapFDynamicPageTitle {
+    border-bottom: 3px solid var(--aat-gold);
+}

@@ -1,0 +1,85 @@
+{
+  "name": "animal-adoption-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^3",
+    "@sap/cds": "^10",
+    "@sap/xssec": "^4",
+    "cloudinary": "^2.11.0",
+    "dotenv": "^18.0.8"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-animals": "cds watch --open aat.admin.animals/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-applications": "cds watch --open aat.admin.applications/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-shelters": "cds watch --open aat.admin.shelters/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-health": "cds watch --open aat.admin.health/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-adoptions": "cds watch --open aat.admin.adoptions/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-users": "cds watch --open aat.admin.users/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-auditlog": "cds watch --open aat.admin.auditlog/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-inspections": "cds watch --open aat.admin.inspections/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "cds": {
+    "server": {
+      "body_parser": {
+        "limit": "15mb"
+      }
+    },
+    "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "admin@shelter.org": {
+              "password": "admin",
+              "roles": [
+                "Admin"
+              ]
+            },
+            "kevin@cap.com": {
+              "password": "kevin",
+              "roles": [
+                "User"
+              ]
+            },
+            "riya@gmail.com": {
+              "password": "riya",
+              "roles": [
+                "User"
+              ]
+            },
+            "user@example.com": {
+              "password": "user",
+              "roles": [
+                "User"
+              ]
+            }
+          }
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "html5-repo": true
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/animals",
+    "app/applications",
+    "app/shelters",
+    "app/health",
+    "app/adoptions",
+    "app/users",
+    "app/auditlog",
+    "app/inspections"
+  ]
+}

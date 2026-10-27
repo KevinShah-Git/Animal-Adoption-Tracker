@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Choose a test login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: #F6F4EE;
+            color: #1B2433
+        }
+
+        .top {
+            background: #0B1F3A;
+            border-bottom: 4px solid #C9A227;
+            padding: 40px 20px;
+            text-align: center;
+            color: #C9A227;
+            font: 700 28px Georgia, serif
+        }
+
+        .box {
+            max-width: 520px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 14px;
+            padding: 26px;
+            border-top: 4px solid #C9A227;
+            box-shadow: 0 2px 12px rgba(11, 31, 58, .1)
+        }
+
+        h2 {
+            margin: 0 0 6px;
+            font-family: Georgia, serif;
+            color: #0B1F3A
+        }
+
+        a.u {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding: 14px 16px;
+            border: 1px solid #D5DAE3;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #0B1F3A
+        }
+
+        a.u:hover {
+            background: #F3E6B3;
+            border-color: #C9A227
+        }
+
+        a.u span {
+            background: #0B1F3A;
+            color: #fff;
+            border-radius: 99px;
+            padding: 3px 12px;
+            font-size: 12px
+        }
+
+        small {
+            display: block;
+            margin-top: 18px;
+            color: #6B7686
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">🐾 Animal Adoption Tracker</div>
+    <div class="box">
+        <h2>Choose a test login</h2>
+        <p>Pick who you want to be. You can switch again at any time.</p>
+        <div id="list"></div>
+        <small>Local testing only. On the deployed app, real sign-in is used.</small>
+    </div>
+    <script>
+        fetch('/dev/users').then(r => r.json()).then(list => {
+            const el = document.getElementById('list');
+            list.forEach(u => {
+                const a = document.createElement('a'); a.className = 'u';
+                a.href = '/dev/login?user=' + encodeURIComponent(u.id) + '&next=' +
+                    encodeURIComponent(u.roles.indexOf('Admin') >= 0 ? '/landing/index.html' : '/portal/index.html'); const b = document.createElement('b'); b.textContent = u.id;
+                const s = document.createElement('span'); s.textContent = u.roles.map(r => r === 'User' ? 'Adopter' : r).join(' / ');
+                a.append(b, s); el.appendChild(a);
+            });
+        }).catch(() => { document.getElementById('list').textContent = 'Test logins are not available here.'; });
+    </script>
+    <script src="/shared/i18n.js"></script>
+    <script src="/shared/session-bar.js"></script>
+</body>
+
+</html>

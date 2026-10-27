@@ -1,0 +1,14 @@
+ID,application_ID,fromStatus,toStatus,changedBy,changedAt,remarks
+eeeeeeee-0000-0000-0000-000000000001,dddddddd-0000-0000-0000-000000000001,,Submitted,kevin@cap.com,2026-10-20T09:00:00Z,
+eeeeeeee-0000-0000-0000-000000000002,dddddddd-0000-0000-0000-000000000002,,Submitted,riya@gmail.com,2026-10-18T16:10:00Z,
+eeeeeeee-0000-0000-0000-000000000003,dddddddd-0000-0000-0000-000000000002,Submitted,Under Review,admin@shelter.org,2026-10-19T10:30:00Z,Home visit to be arranged
+eeeeeeee-0000-0000-0000-000000000004,dddddddd-0000-0000-0000-000000000003,,Submitted,user@example.com,2026-09-10T12:00:00Z,
+eeeeeeee-0000-0000-0000-000000000005,dddddddd-0000-0000-0000-000000000003,Submitted,Under Review,admin@shelter.org,2026-09-12T09:00:00Z,
+eeeeeeee-0000-0000-0000-000000000006,dddddddd-0000-0000-0000-000000000003,Under Review,Approved,admin@shelter.org,2026-09-18T11:00:00Z,"Good home, approved"
+eeeeeeee-0000-0000-0000-000000000007,dddddddd-0000-0000-0000-000000000004,,Submitted,kevin@cap.com,2026-08-05T10:15:00Z,
+eeeeeeee-0000-0000-0000-000000000008,dddddddd-0000-0000-0000-000000000004,Submitted,Under Review,admin@shelter.org,2026-08-07T09:30:00Z,
+eeeeeeee-0000-0000-0000-000000000009,dddddddd-0000-0000-0000-000000000004,Under Review,Approved,admin@shelter.org,2026-08-12T09:45:00Z,Great fit
+eeeeeeee-0000-0000-0000-000000000010,dddddddd-0000-0000-0000-000000000005,,Submitted,riya@gmail.com,2026-10-05T18:00:00Z,
+eeeeeeee-0000-0000-0000-000000000011,dddddddd-0000-0000-0000-000000000005,Submitted,Rejected,admin@shelter.org,2026-10-08T14:20:00Z,Existing pet not yet vaccinated
+eeeeeeee-0000-0000-0000-000000000012,dddddddd-0000-0000-0000-000000000006,,Submitted,user@example.com,2026-10-12T08:40:00Z,
+eeeeeeee-0000-0000-0000-000000000013,dddddddd-0000-0000-0000-000000000006,Submitted,Withdrawn,user@example.com,2026-10-14T19:05:00Z,

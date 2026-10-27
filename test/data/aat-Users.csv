@@ -1,0 +1,5 @@
+ID,userId,firstName,lastName,email,phone,address,city,state,pincode,role,status
+cccccccc-0000-0000-0000-000000000001,USR-0001,KEVIN,SHAH,kevin@cap.com,+91 98450 00001,7 Palm Grove,Bengaluru,Karnataka,560034,User,Active
+cccccccc-0000-0000-0000-000000000002,USR-0002,Riya,Shah,riya@gmail.com,+91 98450 00002,22 Green Park,Chennai,Tamil Nadu,600020,User,Active
+cccccccc-0000-0000-0000-000000000003,USR-0003,Anokhi,Shah,user@example.com,+91 98450 00003,5 Rose Lane,Pune,Maharashtra,411004,User,Active
+cccccccc-0000-0000-0000-000000000004,USR-0004,Priya,Nair,priya@example.com,+91 98450 00004,31 Lotus Street,Kochi,Kerala,682001,User,Inactive

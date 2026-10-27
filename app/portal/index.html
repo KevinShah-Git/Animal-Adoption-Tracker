@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animal Adoption Tracker</title>
+    <link rel="stylesheet" href="portal.css">
+</head>
+
+<body>
+    <aside>
+        <div class="brand">
+            <div class="paw">🐾</div>
+            <h1>Animal Adoption<br>Tracker</h1>
+        </div>
+        <nav id="nav">
+            <button data-route="browse"><span>🐕</span> Find a pet</button>
+            <button data-route="applications"><span>📝</span> My applications</button>
+            <button data-route="adoptions"><span>🏡</span> My adoptions</button>
+            <button data-route="profile"><span>👤</span> My profile</button>
+        </nav>
+        <div class="acct">
+            <a id="lnk-switch" href="/switch/index.html">🔁 Switch user</a>
+            <a href="/logout">🚪 Sign out</a>
+            <a href="#" id="lnk-lang">🌐 हिन्दी</a>
+        </div>
+        <div class="me" id="me">Loading…</div>
+    </aside>
+    <main>
+        <div id="view"></div>
+    </main>
+    <div id="modal" class="modal hidden"></div>
+    <div id="toast"></div>
+    <script>
+        (function () {
+            var l = localStorage.getItem('aat_lang') || 'en';
+            var a = document.getElementById('lnk-lang');
+            a.textContent = '🌐 ' + (l === 'hi' ? 'English' : 'हिन्दी');
+            a.onclick = function (e) { e.preventDefault(); localStorage.setItem('aat_lang', l === 'hi' ? 'en' : 'hi'); location.reload(); };
+            // on the deployed app there is no switch page, so "Switch user" signs out instead
+            fetch('/dev/users').then(function (r) { if (!r.ok) { document.getElementById('lnk-switch').href = '/logout'; } })
+                .catch(function () { document.getElementById('lnk-switch').href = '/logout'; });
+        })();
+    </script>
+    <script src="portal.js"></script>
+    <script src="/shared/i18n.js"></script>
+    <script src="/shared/session-bar.js"></script>
+</body>
+
+</html>

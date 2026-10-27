@@ -1,0 +1,4 @@
+ID,adoption_ID,animal_ID,inspectionDate,inspector,inspectionType,existingPets,animalCondition,result,remarks
+66666666-0000-0000-0000-000000000001,99999999-0000-0000-0000-000000000002,aaaaaaaa-0000-0000-0000-000000000008,2026-09-10,Neha,Home Visit,0,Healthy and well settled,Validated,A great home
+66666666-0000-0000-0000-000000000002,99999999-0000-0000-0000-000000000001,aaaaaaaa-0000-0000-0000-000000000007,2026-10-05,Ravi,Phone Follow-up,0,"Seems happy, no photo shared",Follow-up Required,Please share a recent photo of Max
+66666666-0000-0000-0000-000000000003,99999999-0000-0000-0000-000000000001,aaaaaaaa-0000-0000-0000-000000000007,2026-11-10,Neha,Home Visit,0,,Scheduled,

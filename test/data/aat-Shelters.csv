@@ -1,0 +1,4 @@
+ID,shelterCode,name,address,city,state,pincode,phone,email,capacity,openingTime,closingTime,status,imageUrl
+11111111-1111-1111-1111-111111111111,SHL-0001,Happy Paws Shelter,12 Lake Road,Bengaluru,Karnataka,560001,+91 80 4000 1111,hello@happypaws.org,50,09:00:00,18:00:00,Active,https://picsum.photos/seed/happypaws/800/600
+22222222-2222-2222-2222-222222222222,SHL-0002,Furry Friends Haven,45 Beach Street,Chennai,Tamil Nadu,600001,+91 44 4000 2222,care@furryfriends.org,30,10:00:00,17:00:00,Active,https://picsum.photos/seed/furryfriends/800/600
+33333333-3333-3333-3333-333333333333,SHL-0003,Hillside Rescue,8 Hill View,Pune,Maharashtra,411001,+91 20 4000 3333,info@hillside.org,20,09:30:00,16:30:00,Inactive,https://picsum.photos/seed/hillside/800/600

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animal Adoption Tracker</title>
+    <style>
+        :root {
+            --navy: #0B1F3A;
+            --navy2: #16315A;
+            --gold: #C9A227;
+            --ivory: #F6F4EE;
+            --ink: #1B2433;
+            --muted: #6B7686
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: var(--ivory);
+            color: var(--ink)
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0B1F3A, #16315A);
+            color: #fff;
+            padding: 56px 24px 76px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold)
+        }
+
+        .hero .paw {
+            font-size: 54px
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            color: var(--gold);
+            margin: 8px 0 6px;
+            font-size: 38px
+        }
+
+        .hero p {
+            margin: 0;
+            color: #cdd6e4
+        }
+
+        .who {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #aab6c8
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 20px auto 40px;
+            padding: 0 20px
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            color: var(--navy);
+            margin: 30px 0 12px
+        }
+
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px
+        }
+
+        a.tile {
+            display: block;
+            background: #fff;
+            border-radius: 14px;
+            padding: 22px 18px;
+            text-decoration: none;
+            color: var(--navy);
+            box-shadow: 0 2px 12px rgba(11, 31, 58, .09);
+            border-top: 4px solid var(--gold);
+            transition: transform .15s
+        }
+
+        a.tile:hover {
+            transform: translateY(-4px)
+        }
+
+        a.tile .i {
+            font-size: 30px
+        }
+
+        a.tile b {
+            display: block;
+            margin-top: 8px;
+            font-size: 16px
+        }
+
+        a.tile small {
+            color: var(--muted)
+        }
+
+        a.tile.big {
+            background: var(--navy);
+            color: #fff
+        }
+
+        a.tile.big small {
+            color: #aab6c8
+        }
+
+        .note {
+            background: #fff;
+            border-left: 4px solid var(--gold);
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin-top: 24px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="paw">🐾</div>
+        <h1>Animal Adoption Tracker</h1>
+        <p>Giving every animal a loving home</p>
+        <div class="who" id="who">Checking your access…</div>
+    </div>
+    <div class="wrap" id="app"></div>
+
+    <script>
+        // Edit these links when the app is deployed (Phase 7)
+        const ADMIN_APPS = [
+            { i: '📊', t: 'Dashboard', s: 'Key figures and charts', u: '/dashboard/index.html', big: true },
+            { i: '🐕', t: 'Animals', s: 'Manage animals', u: '/aat.admin.animals/index.html' },
+            { i: '🏠', t: 'Shelters', s: 'Capacity and details', u: '/aat.admin.shelters/index.html' },
+            { i: '📝', t: 'Applications', s: 'Review and decide', u: '/aat.admin.applications/index.html' },
+            { i: '🩺', t: 'Health', s: 'Checkups and treatment', u: '/aat.admin.health/index.html' },
+            { i: '🏡', t: 'Adoptions', s: 'Records and documents', u: '/aat.admin.adoptions/index.html' },
+            { i: '🔍', t: 'Inspections', s: 'Post-adoption visits', u: '/aat.admin.inspections/index.html' },
+            { i: '👥', t: 'Users', s: 'Adopter accounts', u: '/aat.admin.users/index.html' },
+            { i: '📜', t: 'Audit log', s: 'Who did what, and when', u: '/aat.admin.auditlog/index.html' }
+        ];
+        const USER_APPS = [
+            { i: '🐾', t: 'Adopter portal', s: 'Find a pet and track your applications', u: '/portal/index.html', big: true }
+        ];
+        const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const tiles = list => '<div class="tiles">' + list.map(a =>
+            `<a class="tile ${a.big ? 'big' : ''}" href="${a.u}"><div class="i">${a.i}</div><b>${esc(a.t)}</b><small>${esc(a.s)}</small></a>`).join('') + '</div>';
+
+        (async () => {
+            try {
+                const r = await fetch('/odata/v4/session/me()', { headers: { Accept: 'application/json' } });
+                if (!r.ok) throw new Error('not signed in');
+                const me = await r.json();
+                document.getElementById('who').textContent = 'Signed in as ' + me.id;
+                let html = '';
+                if (me.isAdmin) html += '<h2>Shelter administration</h2>' + tiles(ADMIN_APPS);
+                if (me.isUser) html += '<h2>Adopter area</h2>' + tiles(USER_APPS);
+                if (!html) html = '<div class="note">Your account has no role for this application yet. Please ask an administrator to assign you the Admin or User role.</div>';
+                document.getElementById('app').innerHTML = html;
+            } catch (e) {
+                document.getElementById('who').textContent = '';
+                document.getElementById('app').innerHTML = '<div class="note">Please sign in to continue.<br><br><a href="/switch/index.html" style="display:inline-block;background:#0B1F3A;color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none">Sign in</a></div>';
+            }
+        })();
+    </script>
+    <script src="/shared/i18n.js"></script>
+<script src="/shared/session-bar.js"></script>
+</body>
+
+</html>

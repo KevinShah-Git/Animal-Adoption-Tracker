@@ -1,0 +1,7 @@
+ID,healthRecord_ID,docType,fileName,mediaType,size,url,createdAt,createdBy
+77777777-0000-0000-0000-000000000001,bbbbbbbb-0000-0000-0000-000000000001,Certificate,Vaccination certificate.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-09-15T11:00:00Z,admin@shelter.org
+77777777-0000-0000-0000-000000000002,bbbbbbbb-0000-0000-0000-000000000002,Medical Report,X-ray report.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-10-05T12:00:00Z,admin@shelter.org
+77777777-0000-0000-0000-000000000003,bbbbbbbb-0000-0000-0000-000000000004,Certificate,Health certificate.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-09-25T11:30:00Z,admin@shelter.org
+77777777-0000-0000-0000-000000000004,bbbbbbbb-0000-0000-0000-000000000005,Certificate,Vaccination certificate.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-10-01T11:00:00Z,admin@shelter.org
+77777777-0000-0000-0000-000000000005,bbbbbbbb-0000-0000-0000-000000000007,Certificate,Fitness certificate.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-09-12T10:30:00Z,admin@shelter.org
+77777777-0000-0000-0000-000000000006,bbbbbbbb-0000-0000-0000-000000000008,Certificate,Fitness certificate.pdf,application/pdf,245000,https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf,2026-08-01T10:30:00Z,admin@shelter.org

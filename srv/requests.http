@@ -1,0 +1,195 @@
+@host = http://localhost:4004
+@admin = Basic admin@shelter.org:admin
+@alice = Basic alice@example.com:alice
+@shelterId = 11111111-1111-1111-1111-111111111111
+
+############ A. ADMIN SETUP ############
+
+### 1. Shelter from CSV exists
+GET {{host}}/odata/v4/admin/Shelters
+Authorization: {{admin}}
+
+### 2. Create animal 1 (draft)
+# @name newAnimal1
+POST {{host}}/odata/v4/admin/Animals
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "shelter_ID": "{{shelterId}}", "name": "Bruno", "species": "Dog", "breed": "Labrador",
+  "gender": "Male", "age": 2, "healthStatus": "Healthy", "vaccinationStatus": "Vaccinated",
+  "adoptionFee": 500, "description": "Friendly and playful" }
+
+### 3. Activate animal 1
+POST {{host}}/odata/v4/admin/Animals(ID={{newAnimal1.response.body.$.ID}},IsActiveEntity=false)/AdminService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 4. Create animal 2 (draft)
+# @name newAnimal2
+POST {{host}}/odata/v4/admin/Animals
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "shelter_ID": "{{shelterId}}", "name": "Milo", "species": "Cat", "breed": "Persian",
+  "gender": "Male", "age": 1, "healthStatus": "Healthy", "vaccinationStatus": "Vaccinated",
+  "adoptionFee": 300, "description": "Calm lap cat" }
+
+### 5. Activate animal 2
+POST {{host}}/odata/v4/admin/Animals(ID={{newAnimal2.response.body.$.ID}},IsActiveEntity=false)/AdminService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 6. Check: animalId ANI-000x, adoptionEligible true, status Available
+GET {{host}}/odata/v4/admin/Animals?$select=animalId,name,adoptionEligible,adoptionStatus
+Authorization: {{admin}}
+
+############ B. ALICE (USER) ############
+
+### 7. Alice creates her profile
+POST {{host}}/odata/v4/user/registerProfile
+Authorization: {{alice}}
+Content-Type: application/json
+
+{}
+
+### 8. Alice browses available animals
+GET {{host}}/odata/v4/user/Animals?$filter=adoptionStatus eq 'Available'
+Authorization: {{alice}}
+
+### 9. Alice applies for Bruno
+# @name newApp1
+POST {{host}}/odata/v4/user/AdoptionApplications
+Authorization: {{alice}}
+Content-Type: application/json
+
+{ "animal_ID": "{{newAnimal1.response.body.$.ID}}",
+  "reason": "I have a big garden and lots of love to give",
+  "housingType": "Independent House", "hasOtherPets": false,
+  "petExperience": "Had dogs for 10 years" }
+
+### 10. Alice applies for Milo
+# @name newApp2
+POST {{host}}/odata/v4/user/AdoptionApplications
+Authorization: {{alice}}
+Content-Type: application/json
+
+{ "animal_ID": "{{newAnimal2.response.body.$.ID}}",
+  "reason": "Looking for a calm companion",
+  "housingType": "Apartment", "hasOtherPets": false }
+
+### 11. Alice tracks her applications (status Submitted + history)
+GET {{host}}/odata/v4/user/AdoptionApplications?$expand=history
+Authorization: {{alice}}
+
+############ C. ADMIN REVIEWS ############
+
+### 12. Admin starts review of Bruno's application
+POST {{host}}/odata/v4/admin/AdoptionApplications({{newApp1.response.body.$.ID}})/AdminService.startReview
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 13. Admin approves it (creates the adoption, marks Bruno Adopted)
+POST {{host}}/odata/v4/admin/AdoptionApplications({{newApp1.response.body.$.ID}})/AdminService.approve
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "remarks": "Good home" }
+
+### 14. Adoption record created automatically
+# @name adoptions
+GET {{host}}/odata/v4/admin/Adoptions
+Authorization: {{admin}}
+
+### 15. Admin schedules an inspection
+# @name insp
+POST {{host}}/odata/v4/admin/Adoptions({{adoptions.response.body.$.value[0].ID}})/AdminService.scheduleInspection
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "inspectionDate": "2026-12-01", "inspector": "Neha", "inspectionType": "Home Visit" }
+
+### 16. Admin records the inspection result
+POST {{host}}/odata/v4/admin/Inspections(ID={{insp.response.body.$.ID}},IsActiveEntity=true)/AdminService.recordResult
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "result": "Validated", "findings": "Healthy and settled", "remarks": "All good" }
+
+############ D. WITHDRAW AND REJECT ############
+
+### 17. Alice withdraws her Milo application (allowed: still Submitted)
+POST {{host}}/odata/v4/user/AdoptionApplications({{newApp2.response.body.$.ID}})/UserService.withdraw
+Authorization: {{alice}}
+Content-Type: application/json
+
+{}
+
+### 18. Alice applies for Milo again
+# @name newApp3
+POST {{host}}/odata/v4/user/AdoptionApplications
+Authorization: {{alice}}
+Content-Type: application/json
+
+{ "animal_ID": "{{newAnimal2.response.body.$.ID}}",
+  "reason": "Still very interested in Milo",
+  "housingType": "Apartment", "hasOtherPets": false }
+
+### 19. Admin rejects it (reason is mandatory)
+POST {{host}}/odata/v4/admin/AdoptionApplications({{newApp3.response.body.$.ID}})/AdminService.reject
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "reason": "Home visit not feasible", "remarks": "Reapply later" }
+
+### 20. Alice sees her adoption and inspection (limited fields)
+GET {{host}}/odata/v4/user/Adoptions
+Authorization: {{alice}}
+
+###
+GET {{host}}/odata/v4/user/Inspections
+Authorization: {{alice}}
+
+############ E. DASHBOARD ############
+
+### 21. KPIs
+GET {{host}}/odata/v4/admin/getAnimalSummary()
+Authorization: {{admin}}
+
+### 22. Application status chart
+GET {{host}}/odata/v4/admin/getApplicationStatusDistribution()
+Authorization: {{admin}}
+
+### 23. Adoption trend
+GET {{host}}/odata/v4/admin/getAdoptionTrend(months=6)
+Authorization: {{admin}}
+
+### 24. Shelter occupancy
+GET {{host}}/odata/v4/admin/getShelterOccupancy()
+Authorization: {{admin}}
+
+############ F. CLOUDINARY UPLOAD ############
+
+### 25. Upload a photo for Bruno (1x1 test PNG)
+POST {{host}}/odata/v4/admin/uploadAttachment
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "target": "AnimalPhoto", "parentID": "{{newAnimal1.response.body.$.ID}}", "docType": "Photo",
+  "fileName": "test.png", "mediaType": "image/png",
+  "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==" }
+
+############ G. SECURITY (both must return 403) ############
+
+### 26. Alice must NOT reach the admin service
+GET {{host}}/odata/v4/admin/Animals
+Authorization: {{alice}}
+
+### 27. Admin must NOT use the user service
+GET {{host}}/odata/v4/user/Animals
+Authorization: {{admin}}
