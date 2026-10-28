@@ -45,6 +45,7 @@ service UserService {
     select from aat.HealthRecords {
       ID,
       animal,
+      checkupDate,
       healthStatus,
       vaccinationStatus,
       healthSummary,
@@ -68,7 +69,8 @@ service UserService {
     {
       grant: [
         'READ',
-        'UPDATE'
+        'UPDATE',
+        'DELETE'
       ],
       to   : 'User',
       where: 'email = $user'
@@ -144,8 +146,16 @@ service UserService {
       remarks
     };
 
-  action   registerProfile()                                                                           returns Users;
+  action registerProfile()                                                                           returns Users;
 
-  action   addApplicationDocument(applicationID: UUID, docType: String, fileName: String, url: String) returns String;
+  action addApplicationDocument(applicationID: UUID, docType: String, fileName: String, url: String) returns String;
+
+  type UploadResult {
+    url      : String;
+    publicId : String;
+    fileName : String;
+  }
+
+  action uploadFile(fileName: String, mediaType: String, content: LargeString)                       returns UploadResult;
 
 }

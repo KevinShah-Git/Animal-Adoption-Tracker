@@ -17,6 +17,10 @@ annotate service.Animals with {
     adoptionEligible  @title: '{i18n>eligibleForAdoption}';
     description       @title: '{i18n>description}';
     photoUrl          @title: '{i18n>photoLinkUrl}';
+    createdAt         @title: '{i18n>Created At}';
+    createdBy         @title: '{i18n>Created By}';
+    modifiedAt        @title: '{i18n>Modified At}';
+    modifiedBy        @title: '{i18n>Modified By}';
 };
 
 annotate service.Shelters with {

@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: animal-adoption-tracker
 version: 1.0.0
-description: "A simple CAP project."
+description: "Animal Adoption Tracker"
 
 parameters:
   enable-parallel-deployments: true
@@ -13,46 +13,45 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
+        - mkdir -p .deploy/app-router/resources
+        - cp -R app/landing app/portal app/dashboard app/shared app/switch app/theme .deploy/app-router/resources/
 
 modules:
+  # CAP backend
   - name: animal-adoption-tracker-srv
     type: nodejs
     path: gen/srv
     parameters:
       instances: 1
       buildpack: nodejs_buildpack
-
     build-parameters:
       builder: npm-ci
-
     provides:
       - name: srv-api
         properties:
           srv-url: ${default-url}
-
     requires:
       - name: animal-adoption-tracker-auth
       - name: animal-adoption-tracker-db
       - name: cloudinary-credentials
 
+  # HANA database deployer
   - name: animal-adoption-tracker-db-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
-
     requires:
       - name: animal-adoption-tracker-db
 
+  # Approuter
   - name: animal-adoption-tracker
     type: approuter.nodejs
     path: .deploy/app-router
-
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
       memory: 256M
-
     requires:
       - name: srv-api
         group: destinations
@@ -60,17 +59,125 @@ modules:
           name: srv-api
           url: ~{srv-url}
           forwardAuthToken: true
-
       - name: animal-adoption-tracker-auth
       - name: animal-adoption-tracker-html5-runtime
-
     provides:
       - name: app-api
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
 
+  # UI5 app: Animals
+  - name: animals
+    type: html5
+    path: app/animals
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs animals
+      build-result: animals.zip
+      supported-platforms: []
+
+  - name: adoptions
+    type: html5
+    path: app/adoptions
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs adoptions
+      build-result: adoptions.zip
+      supported-platforms: []
+
+  - name: applications
+    type: html5
+    path: app/applications
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs applications
+      build-result: applications.zip
+      supported-platforms: []
+
+  - name: shelters
+    type: html5
+    path: app/shelters
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs shelters
+      build-result: shelters.zip
+      supported-platforms: []
+
+  - name: health
+    type: html5
+    path: app/health
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs health
+      build-result: health.zip
+      supported-platforms: []
+
+  - name: users
+    type: html5
+    path: app/users
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs users
+      build-result: users.zip
+      supported-platforms: []
+
+  - name: auditlog
+    type: html5
+    path: app/auditlog
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs auditlog
+      build-result: auditlog.zip
+      supported-platforms: []
+
+  - name: inspections
+    type: html5
+    path: app/inspections
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all --clean-dest
+        - node ../../scripts/zip-ui5.cjs inspections
+      build-result: inspections.zip
+      supported-platforms: []
+  - name: animal-adoption-tracker-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: animal-adoption-tracker-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      builder: custom
+      commands:
+        - node scripts/package-html5-content.cjs
+      build-result: resources
+
 resources:
+  # XSUAA authentication
   - name: animal-adoption-tracker-auth
     type: org.cloudfoundry.managed-service
     parameters:
@@ -89,25 +196,27 @@ resources:
     requires:
       - name: app-api
 
+  # HANA HDI container
   - name: animal-adoption-tracker-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
 
+  # HTML5 repository host
   - name: animal-adoption-tracker-html5-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
       service-plan: app-host
 
+  # HTML5 repository runtime
   - name: animal-adoption-tracker-html5-runtime
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
 
-  # Cloudinary User Provided Service
+  # Existing Cloudinary user-provided service
   - name: cloudinary-credentials
     type: org.cloudfoundry.existing-service
-

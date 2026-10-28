@@ -145,7 +145,19 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Inspections"
+              "contextPath": "/Inspections",
+              "content": {
+                "header": {
+                  "actions": {
+                    "uploadDoc": {
+                      "press": "aat.admin.inspections.ext.Upload.onUploadDoc",
+                      "text": "Upload Document",
+                      "visible": true,
+                      "enabled": true
+                    }
+                  }
+                }
+              }
             }
           }
         }

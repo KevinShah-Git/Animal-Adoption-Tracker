@@ -145,7 +145,19 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Adoptions"
+              "contextPath": "/Adoptions",
+              "content": {
+                "header": {
+                  "actions": {
+                    "uploadDoc": {
+                      "press": "aat.admin.adoptions.ext.Upload.onUploadDoc",
+                      "text": "Upload Document",
+                      "visible": true,
+                      "enabled": true
+                    }
+                  }
+                }
+              }
             }
           }
         }

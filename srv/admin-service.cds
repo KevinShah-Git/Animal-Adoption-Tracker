@@ -119,11 +119,26 @@ service AdminService {
     occupancyPct     : Decimal(5, 2);
   }
 
-  function getAnimalSummary()                 returns AnimalKPI;
-  function getApplicationStatusDistribution() returns array of StatusCount;
-  function getAdoptionTrend(months: Integer)  returns array of TrendPoint;
-  function getShelterOccupancy()              returns array of OccupancyRow;
-  function getOverdueCheckups()               returns array of HealthRecords;
+  type UploadResult {
+    url      : String;
+    publicId : String;
+    fileName : String;
+  }
+
+  action   uploadFile(kind: String, fileName: String, mediaType: String, content: LargeString) returns UploadResult;
+
+  type PendingCounts {
+    pendingApplications : Integer;
+    pendingInspections  : Integer;
+  }
+
+  function getPendingCounts()                                                                  returns PendingCounts;
+
+  function getAnimalSummary()                                                                  returns AnimalKPI;
+  function getApplicationStatusDistribution()                                                  returns array of StatusCount;
+  function getAdoptionTrend(months: Integer)                                                   returns array of TrendPoint;
+  function getShelterOccupancy()                                                               returns array of OccupancyRow;
+  function getOverdueCheckups()                                                                returns array of HealthRecords;
 
 
 }

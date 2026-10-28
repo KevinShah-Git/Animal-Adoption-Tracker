@@ -193,21 +193,22 @@ entity AdoptionDocuments : Attachment {
 }
 
 entity HealthRecords : cuid, managed {
-  animal            : Association to Animals @mandatory;
-  checkupDate       : Date;
-  diagnosis         : String(500);
-  treatment         : String(500);
-  medication        : String(300);
-  veterinarian      : String(100);
-  weight            : Decimal(6, 2);
-  healthStatus      : HealthStatus;
-  vaccinationStatus : VaccinationStatus;
-  healthSummary     : String(1000);
-  nextCheckupDate   : Date;
-  adoptionEligible  : Boolean;
-  recovered         : Boolean default false;
-  documents         : Composition of many HealthDocuments
-                        on documents.healthRecord = $self;
+  animal                     : Association to Animals @mandatory;
+  checkupDate                : Date;
+  diagnosis                  : String(500);
+  treatment                  : String(500);
+  medication                 : String(300);
+  veterinarian               : String(100);
+  weight                     : Decimal(6, 2);
+  healthStatus               : HealthStatus;
+  vaccinationStatus          : VaccinationStatus;
+  healthSummary              : String(1000);
+  nextCheckupDate            : Date;
+  adoptionEligible           : Boolean;
+  recovered                  : Boolean default false;
+  virtual checkupCriticality : Integer;
+  documents                  : Composition of many HealthDocuments
+                                 on documents.healthRecord = $self;
 }
 
 entity HealthDocuments : Attachment {

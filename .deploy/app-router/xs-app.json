@@ -1,10 +1,71 @@
 {
+  "welcomeFile": "/landing/index.html",
+  "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/(.*)$",
-      "target": "$1",
+      "source": "^/(odata|dev)/(.*)$",
+      "target": "/$1/$2",
       "destination": "srv-api",
+      "authenticationType": "xsuaa",
       "csrfProtection": true
+    },
+    {
+      "source": "^/aat\\.admin\\.inspections/(.*)$",
+      "target": "/aatadmininspections-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.auditlog/(.*)$",
+      "target": "/aatadminauditlog-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.users/(.*)$",
+      "target": "/aatadminusers-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.adoptions/(.*)$",
+      "target": "/aatadminadoptions-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.health/(.*)$",
+      "target": "/aatadminhealth-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.shelters/(.*)$",
+      "target": "/aatadminshelters-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.applications/(.*)$",
+      "target": "/aatadminapplications-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/aat\\.admin\\.animals/(.*)$",
+      "target": "/aatadminanimals-0.0.1/$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/(.*)$",
+      "localDir": "resources",
+      "authenticationType": "xsuaa"
     }
-  ]
+  ],
+  "logout": {
+    "logoutEndpoint": "/logout",
+    "logoutMethod": "GET",
+    "logoutPage": "/landing/index.html"
+  }
 }

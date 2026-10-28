@@ -575,3 +575,56 @@ p.sub {
     background: rgba(255, 255, 255, .08);
     color: #fff
 }
+
+.docrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 12px;
+    border: 1px dashed #D5DAE3;
+    border-radius: 10px;
+    margin-bottom: 10px
+}
+
+.docrow .full {
+    grid-column: 1/-1
+}
+
+.form input[type=file] {
+    padding: 8px;
+    background: #fff
+}
+
+h3.grp {
+    font-family: Georgia, serif;
+    color: var(--navy);
+    margin: 24px 0 10px
+}
+
+.filters select {
+    min-width: 150px
+}
+
+.pet .m {
+    margin: 2px 0
+}
+
+.acct {
+    padding: 6px 14px 0;
+    display: grid;
+    gap: 4px
+}
+
+.acct a {
+    display: block;
+    color: #cdd6e4;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 14px
+}
+
+.acct a:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #fff
+}

@@ -1,5 +1,7 @@
 (function () {
     'use strict';
+    if (window.__aatI18n) { return; }
+    window.__aatI18n = true;
     var LANG = localStorage.getItem('aat_lang') || 'en';
     window.aatLang = LANG;
 
@@ -14,7 +16,7 @@
         'Inspections': 'निरीक्षण', 'Post-adoption visits': 'गोद लेने के बाद के दौरे', 'Users': 'उपयोगकर्ता', 'Adopter accounts': 'गोद लेने वालों के खाते',
         'Audit log': 'ऑडिट लॉग', 'Who did what, and when': 'किसने क्या किया, और कब', 'Adopter portal': 'एडॉप्टर पोर्टल',
         'Find a pet and track your applications': 'पालतू खोजें और अपने आवेदन ट्रैक करें', 'Please sign in to continue.': 'जारी रखने के लिए कृपया साइन इन करें।',
-        'Sign in': 'साइन इन', 'Switch user': 'उपयोगकर्ता बदलें', 'Home': 'होम', 'Add another link': 'एक और लिंक जोड़ें', 'Loading…': 'लोड हो रहा है…', 'Not signed in': 'साइन इन नहीं है',
+        'Sign in': 'साइन इन', 'Home': 'होम', 'Add another link': 'एक और लिंक जोड़ें', 'Loading…': 'लोड हो रहा है…', 'Not signed in': 'साइन इन नहीं है',
         'Your account has no role for this application yet. Please ask an administrator to assign you the Admin or User role.': 'इस एप्लिकेशन के लिए आपके खाते में अभी कोई भूमिका नहीं है। कृपया एडमिन से एडमिन या यूज़र भूमिका देने के लिए कहें।',
         /* dashboard */
         'Refresh': 'रीफ़्रेश', 'Total animals': 'कुल जानवर', 'Available': 'उपलब्ध', 'Adopted': 'गोद लिए गए', 'Reserved / treatment': 'आरक्षित / इलाज में',
@@ -48,6 +50,22 @@
         'Completed': 'पूर्ण', 'Cancelled': 'रद्द', 'Scheduled': 'निर्धारित', 'Validated': 'सत्यापित', 'Follow-up Required': 'अनुवर्ती आवश्यक',
         'Failed': 'असफल', 'Home Visit': 'घर का दौरा', 'Video Call': 'वीडियो कॉल', 'Phone Follow-up': 'फ़ोन अनुवर्ती',
         'Male': 'नर', 'Female': 'मादा', 'Unknown': 'अज्ञात', 'Dog': 'कुत्ता', 'Cat': 'बिल्ली', 'Rabbit': 'खरगोश', 'Bird': 'पक्षी',
+        /* added after the full audit */
+        'Any age': 'कोई भी आयु', 'Under 1 year': '1 वर्ष से कम', '1 to 3 years': '1 से 3 वर्ष', 'Over 3 years': '3 वर्ष से अधिक',
+        'All statuses': 'सभी स्थितियाँ', 'Edit': 'संपादित करें', 'Previous adoptions': 'पिछले गोद लिए जानवर', 'Current adoptions': 'वर्तमान में गोद लिए जानवर',
+        'Delete my profile': 'मेरी प्रोफ़ाइल हटाएँ', 'Eligible for adoption': 'गोद लेने के योग्य', 'Edit application': 'आवेदन संपादित करें',
+        'Choose a file from your device (PDF, JPG or PNG, max 10 MB)': 'अपने डिवाइस से फ़ाइल चुनें (PDF, JPG या PNG, अधिकतम 10 MB)',
+        'or paste a link (https://…)': 'या लिंक चिपकाएँ (https://…)', 'Upload': 'अपलोड करें', 'Supporting documents': 'सहायक दस्तावेज़',
+        '+ Add another document': '+ एक और दस्तावेज़ जोड़ें', 'Add another document': 'एक और दस्तावेज़ जोड़ें', 'e.g. Rent agreement': 'जैसे: किराया अनुबंध',
+        'Animal Adoption': 'एनिमल एडॉप्शन', 'Tracker': 'ट्रैकर', 'Switch user': 'उपयोगकर्ता बदलें',
+        'Application updated': 'आवेदन अपडेट हो गया', 'Choose a file or paste a link': 'फ़ाइल चुनें या लिंक चिपकाएँ',
+        'Each document needs a file or a valid link starting with https://': 'हर दस्तावेज़ के लिए फ़ाइल या https:// से शुरू होने वाला सही लिंक ज़रूरी है',
+        'Upload failed, please try again': 'अपलोड नहीं हो सका, कृपया दोबारा कोशिश करें',
+        'Delete your profile? This cannot be undone.': 'क्या आप अपनी प्रोफ़ाइल हटाना चाहते हैं? इसे वापस नहीं किया जा सकता।',
+        'Withdraw this application?': 'क्या आप यह आवेदन वापस लेना चाहते हैं?', 'Please sign in as an adopter.': 'कृपया एडॉप्टर के रूप में साइन इन करें।',
+        'Pending applications': 'लंबित आवेदन', 'Pending inspections': 'लंबित निरीक्षण', 'Overdue': 'बकाया',
+        'Supporting documents (optional)': 'सहायक दस्तावेज़ (वैकल्पिक)', 'Welcome! Please complete your profile before you apply.': 'स्वागत है! आवेदन करने से पहले कृपया अपनी प्रोफ़ाइल पूरी करें।',
+        'complete your profile': 'अपनी प्रोफ़ाइल पूरी करें',
         /* session bar */
         'Signed in as': 'साइन इन:', 'Admin dashboard': 'एडमिन डैशबोर्ड', 'Switch user / role': 'उपयोगकर्ता / भूमिका बदलें', 'Sign out': 'साइन आउट',
         'Admin': 'एडमिन', 'Adopter': 'एडॉप्टर', 'Checking sign-in…': 'साइन-इन जाँचा जा रहा है…', 'no role': 'कोई भूमिका नहीं',
@@ -68,12 +86,21 @@
         [/^Why would you like to adopt (.+)\? \*$/, function (m) { return 'आप ' + m[1] + ' को क्यों गोद लेना चाहते हैं? *'; }],
         [/^Adopt (.+)$/, function (m) { return m[1] + ' को गोद लें'; }],
         [/^(.+) · (\d+) of (\d+) places$/, function (m) { return m[1] + ' · ' + m[3] + ' में से ' + m[2] + ' जगहें भरी'; }],
-        [/^next checkup (.+)$/, function (m) { return 'अगली जाँच: ' + m[1]; }]
+        [/^next checkup (.+)$/, function (m) { return 'अगली जाँच: ' + m[1]; }],
+        [/^Next checkup: (.+)$/, function (m) { return 'अगली जाँच: ' + m[1]; }],
+        [/^(\d+(?:\.\d+)?) yr$/, function (m) { return m[1] + ' वर्ष'; }],
+        [/^(\d+(?:\.\d+)?) years$/, function (m) { return m[1] + ' वर्ष'; }],
+        [/^(\d+) animals? found\.$/, function (m) { return m[1] + ' जानवर मिले।'; }]
     ];
 
     function lookup(key) {
         var out = D[key];
         if (!out) { for (var i = 0; i < P.length; i++) { var x = P[i][0].exec(key); if (x) { out = P[i][1](x); break; } } }
+        if (!out && key.indexOf(' · ') > 0) {                     // "Dog · Labrador · 2 yr": translate each part
+            var changed = false;
+            var parts = key.split(' · ').map(function (p) { var t = lookup(p.trim()); if (t) { changed = true; } return t || p; });
+            if (changed) { out = parts.join(' · '); }
+        }
         return out;
     }
     function tr(s) {
@@ -88,7 +115,7 @@
         return out ? lead + m[1] + out + m[3] + trail : s;
     }
     window.aatT = function (s) { return LANG === 'hi' ? tr(s) : s; };
-    // Fiori apps translate themselves (UI5 + the label files), so only translate the custom pages
+    // the admin Fiori apps translate themselves (UI5 + label files), so only the custom pages are translated here
     if (LANG !== 'hi' || /\/aat\.admin\./.test(location.pathname)) { return; }
 
     document.documentElement.lang = 'hi';

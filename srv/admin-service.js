@@ -1,3 +1,4 @@
+const cl = require('./lib/cloudinary');
 const cds = require('@sap/cds');
 const { nextNumber, audit, addHistory } = require('./lib/common');
 
@@ -59,6 +60,7 @@ module.exports = class AdminService extends cds.ApplicationService {
       const app = await SELECT.one.from(AdoptionApplications).where({ ID });
       if (app.status !== 'Submitted') return req.error(409, 'Only submitted applications can be moved to review');
       await UPDATE(AdoptionApplications).set({ status: 'Under Review', reviewedBy: req.user.id }).where({ ID });
+      await audit('AdoptionApplications', ID, 'START_REVIEW', req.user);
       await addHistory(ID, app.status, 'Under Review', req.user);
       return SELECT.one.from(AdoptionApplications).where({ ID });
     });
@@ -140,6 +142,7 @@ module.exports = class AdminService extends cds.ApplicationService {
       if (new Date(req.data.nextCheckupDate) < new Date(new Date().toDateString()))
         return req.error(400, 'Checkup date must be today or in the future');
       await UPDATE(HealthRecords).set({ nextCheckupDate: req.data.nextCheckupDate }).where({ ID });
+      await audit('HealthRecords', ID, 'SCHEDULE_CHECKUP', req.user, req.data);
       return SELECT.one.from(HealthRecords).where({ ID });
     });
     this.on('markRecovered', 'HealthRecords', async req => {
@@ -307,6 +310,45 @@ module.exports = class AdminService extends cds.ApplicationService {
       if (req.data.adoption_ID && !req.data.animal_ID) {
         const a = await SELECT.one.from(Adoptions).columns('animal_ID').where({ ID: req.data.adoption_ID });
         if (a) req.data.animal_ID = a.animal_ID;
+      }
+    });
+
+    // ---- file upload from a device to Cloudinary ----
+    const FOLDERS = { animal: 'aat/animals', shelter: 'aat/shelters', document: 'aat/documents' };
+    this.on('uploadFile', async req => {
+      const { kind, fileName, mediaType, content } = req.data;
+      const folder = FOLDERS[kind];
+      if (!folder) return req.error(400, 'Unknown upload type');
+      try {
+        const r = await cl.upload({ content, mediaType, folder });
+        return { url: r.url, publicId: r.publicId, fileName };
+      } catch (e) { return req.error(502, 'Upload failed: ' + (e.message || e)); }
+    });
+
+    // ---- users created by the admin ----
+    this.before('CREATE', 'Users', async req => {
+      req.data.userId = await nextNumber('Users', 'userId', 'USR');
+      const email = (req.data.email || '').trim().toLowerCase();
+      if (email) {
+        req.data.email = email;
+        const dup = await SELECT.one.from(db.Users).where({ email });
+        if (dup) req.error(409, 'A user with this email already exists', 'email');
+      }
+    });
+
+    // ---- dashboard: pending work ----
+    this.on('getPendingCounts', async () => {
+      const [{ n: apps }] = await SELECT.from(AdoptionApplications).columns('count(*) as n').where({ status: { in: ['Submitted', 'Under Review'] } });
+      const [{ n: insp }] = await SELECT.from(Inspections).columns('count(*) as n').where({ result: { in: ['Scheduled', 'Follow-up Required'] } });
+      return { pendingApplications: apps, pendingInspections: insp };
+    });
+
+    // ---- health records: colour the next checkup date (red = overdue) ----
+    this.after('READ', 'HealthRecords', rows => {
+      const today = new Date().toISOString().slice(0, 10);
+      for (const r of (Array.isArray(rows) ? rows : [rows])) {
+        if (!r || r.nextCheckupDate === undefined) continue;
+        r.checkupCriticality = (!r.recovered && r.nextCheckupDate && r.nextCheckupDate < today) ? 1 : (r.nextCheckupDate ? 3 : 0);
       }
     });
 

@@ -32,7 +32,8 @@ const HI = {
     'Reject': 'अस्वीकृत करें', 'Schedule Checkup': 'जाँच निर्धारित करें', 'Mark Recovered': 'ठीक हुआ चिह्नित करें',
     'Schedule Inspection': 'निरीक्षण निर्धारित करें', 'Record Result': 'परिणाम दर्ज करें', 'Add Document': 'दस्तावेज़ जोड़ें',
     'Remove': 'हटाएँ', 'Set Photo Link': 'फ़ोटो लिंक सेट करें', 'Set Image Link': 'छवि लिंक सेट करें',
-    'ID': 'आईडी', 'File': 'फ़ाइल', 'Link': 'लिंक', 'Document Link': 'दस्तावेज़ लिंक',
+    'ID': 'आईडी', 'File': 'फ़ाइल', 'Link': 'लिंक', 'Document Link': 'दस्तावेज़ लिंक', 'Created At': 'बनाया गया (समय)', 'Created By': 'बनाने वाला', 'Modified At': 'बदला गया (समय)', 'Modified By': 'बदलने वाला', 'Administrative': 'प्रशासनिक',
+    'Set Photo Link': 'फ़ोटो लिंक सेट करें', 'Set Image Link': 'छवि लिंक सेट करें',
 };
 
 const keyFor = new Map(), textFor = new Map();

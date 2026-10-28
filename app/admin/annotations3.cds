@@ -99,3 +99,30 @@ annotate service.Inspections with @Capabilities.NavigationRestrictions.Restricte
 
 annotate service.Adoptions with @cds.odata.valuelist;
 annotate service.Animals with @cds.odata.valuelist;
+
+annotate service.Animals with @UI.FieldGroup #Admin: {Data: [
+    {Value: createdAt},
+    {Value: createdBy},
+    {Value: modifiedAt},
+    {Value: modifiedBy}
+]};
+
+annotate service.AuditLog with @(
+    UI.Facets           : [{
+        $Type : 'UI.ReferenceFacet',
+        Label : '{i18n>details}',
+        Target: '@UI.FieldGroup#Audit'
+    }],
+    UI.FieldGroup #Audit: {Data: [
+        {Value: timestamp},
+        {Value: entity},
+        {Value: action},
+        {Value: userId},
+        {Value: entityKey},
+        {Value: details}
+    ]}
+);
+
+annotate service.AuditLog with {
+    details @UI.MultiLineText;
+};

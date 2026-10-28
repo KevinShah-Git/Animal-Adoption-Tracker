@@ -29,11 +29,6 @@ annotate service.Inspections with @(
             $Type : 'UI.DataFieldForAction',
             Action: 'AdminService.recordResult',
             Label : '{i18n>recordResult}'
-        },
-        {
-            $Type : 'UI.DataFieldForAction',
-            Action: 'AdminService.addDocument',
-            Label : '{i18n>addDocument}'
         }
     ],
     UI.Facets                : [

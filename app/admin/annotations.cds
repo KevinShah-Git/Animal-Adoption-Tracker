@@ -46,11 +46,6 @@ annotate service.Animals with @(
             $Type : 'UI.DataFieldForAction',
             Action: 'AdminService.changeAdoptionStatus',
             Label : '{i18n>changeAdoptionStatus}'
-        },
-        {
-            $Type : 'UI.DataFieldForAction',
-            Action: 'AdminService.setPhotoLink',
-            Label : '{i18n>setPhotoLink}'
         }
     ],
     UI.Facets             : [
@@ -68,6 +63,11 @@ annotate service.Animals with @(
             $Type : 'UI.ReferenceFacet',
             Label : '{i18n>healthHistory}',
             Target: 'healthRecords/@UI.LineItem'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>Administrative}',
+            Target: '@UI.FieldGroup#Admin'
         }
     ],
     UI.FieldGroup #General: {Data: [
@@ -248,11 +248,7 @@ annotate service.Shelters with @(
         },
         {Value: status}
     ],
-    UI.Identification      : [{
-        $Type : 'UI.DataFieldForAction',
-        Action: 'AdminService.setImageLink',
-        Label : '{i18n>setImageLink}'
-    }],
+    UI.Identification      : [],
     UI.Facets              : [
         {
             $Type : 'UI.ReferenceFacet',
@@ -314,7 +310,10 @@ annotate service.HealthRecords with @(
         {Value: diagnosis},
         {Value: healthStatus},
         {Value: vaccinationStatus},
-        {Value: nextCheckupDate},
+        {
+            Value      : nextCheckupDate,
+            Criticality: checkupCriticality
+        },
         {Value: recovered},
         {
             $Type : 'UI.DataFieldForAction',
@@ -337,11 +336,6 @@ annotate service.HealthRecords with @(
             $Type : 'UI.DataFieldForAction',
             Action: 'AdminService.markRecovered',
             Label : '{i18n>markRecovered}'
-        },
-        {
-            $Type : 'UI.DataFieldForAction',
-            Action: 'AdminService.addDocument',
-            Label : '{i18n>addDocument}'
         }
     ],
     UI.Facets               : [
@@ -421,11 +415,6 @@ annotate service.Adoptions with @(
             $Type : 'UI.DataFieldForAction',
             Action: 'AdminService.scheduleInspection',
             Label : '{i18n>scheduleInspection}'
-        },
-        {
-            $Type : 'UI.DataFieldForAction',
-            Action: 'AdminService.addDocument',
-            Label : '{i18n>addDocument}'
         }
     ],
     UI.Facets              : [

@@ -327,12 +327,13 @@
             $('err').style.display = 'none';
             try {
                 const s = await api('getAnimalSummary()');                 // first call alone, so the login prompt shows once
-                const [d, t, o, od] = await Promise.all([
+                const [d, t, o, od, pc] = await Promise.all([
                     api('getApplicationStatusDistribution()'), api('getAdoptionTrend(months=6)'),
-                    api('getShelterOccupancy()'), api('getOverdueCheckups()')]);
+                    api('getShelterOccupancy()'), api('getOverdueCheckups()'), api('getPendingCounts()')]);
                 $('kpis').innerHTML =
                     kpi('Total animals', s.totalAnimals) + kpi('Available', s.available) +
                     kpi('Adopted', s.adopted) + kpi('Reserved / treatment', s.unavailable) +
+                    kpi('Pending applications', pc.pendingApplications) + kpi('Pending inspections', pc.pendingInspections) +
                     kpi('Overdue checkups', od.value.length, od.value.length ? 'warn' : '');
                 statusBars(d.value); trendChart(t.value); occupancy(o.value);
                 $('stamp').textContent = 'Updated ' + new Date().toLocaleTimeString();
@@ -344,7 +345,7 @@
         load();
     </script>
     <script src="/shared/i18n.js"></script>
-<script src="/shared/session-bar.js"></script>
+    <script src="/shared/session-bar.js"></script>
 </body>
 
 </html>

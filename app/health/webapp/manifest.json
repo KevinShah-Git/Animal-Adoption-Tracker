@@ -145,7 +145,19 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/HealthRecords"
+              "contextPath": "/HealthRecords",
+              "content": {
+                "header": {
+                  "actions": {
+                    "uploadDoc": {
+                      "press": "aat.admin.health.ext.Upload.onUploadDoc",
+                      "text": "Upload Document",
+                      "visible": true,
+                      "enabled": true
+                    }
+                  }
+                }
+              }
             }
           }
         }
