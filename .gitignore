@@ -43,3 +43,12 @@ dist/
 build/
 
 default-env.json
+
+# Generated HTML5 application archives
+app/*/*.zip
+app/*/*-content.zip
+
+# Generated deployment resources
+.deploy/app-router/resources/
+.deploy/app-router/package-lock.json
+resources/
